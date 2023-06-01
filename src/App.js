@@ -12,20 +12,19 @@ function App() {
   return (
     <div className="App">
 
-      <Navbar />
+<Navbar />
 
-      <Routes>
+<Routes>
 
-          <Route path="/" element={<Home />} />
-          <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/auth/login" element={<Login />} />
+  <Route path="/" element={ <Home /> }/>
+  <Route path="/auth/signup" element={ <Signup /> }/>
+  <Route path="/auth/login" element={ <Login /> }/>
+  
+  {/* error handlers */}
+  <Route path="/error" element={ <Error /> }/>
+  <Route path="*" element={ <NotFound /> }/>
 
-          {/* error handlers */}
-          <Route path="/error" element={<Error />} />
-          <Route path="*" element={<NotFound />} />
- 
-
-      </Routes>
+</Routes>
       
     </div>
   );
