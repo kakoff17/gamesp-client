@@ -9,18 +9,22 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
     try {
       const response = await loginService({
         email,
         password,
       });
-      console.log(response)
+      //console.log(response)
+      
+      // guarda el token de manera segura
+      localStorage.setItem()
+
     } catch (error) {
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.message)
@@ -32,7 +36,7 @@ function Login() {
 
   return (
     <div>
-      <h1>Log In</h1>
+      <h1>Acceder</h1>
 
       <form onSubmit={handleLogin}>
         <label>Email:</label>
@@ -45,7 +49,7 @@ function Login() {
 
         <br />
 
-        <label>Password:</label>
+        <label>Contraseña:</label>
         <input
           type="password"
           name="password"
@@ -57,7 +61,7 @@ function Login() {
 
         {errorMessage && <p style={{color: "red"}}>{errorMessage}</p>}
 
-        <button type="submit">Login</button>
+        <button type="submit">Acceso</button>
       </form>
     </div>
   );

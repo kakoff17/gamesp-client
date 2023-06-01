@@ -3,33 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { signupService } from "../../services/auth.services";
 
 function Signup() {
-
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-   
+  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
+  const handleSignup = async (event) => {
+    event.preventDefault();
 
     try {
-      const user = { username, email, password }
+      const user = { username, email, password };
 
       await signupService(user);
       navigate("/auth/login");
-
     } catch (error) {
       if (error.response.status === 400) {
-        setErrorMessage(error.response.data.message)
+        setErrorMessage(error.response.data.message);
       } else {
-        navigate("/error") 
+        navigate("/error");
       }
     }
   };
@@ -47,7 +44,7 @@ function Signup() {
           onChange={handleUsernameChange}
         />
 
-        <br />
+        <br/>
 
         <label>Email:</label>
         <input
@@ -57,7 +54,7 @@ function Signup() {
           onChange={handleEmailChange}
         />
 
-        <br />
+        <br/>
 
         <label>Contraseña:</label>
         <input
@@ -67,12 +64,11 @@ function Signup() {
           onChange={handlePasswordChange}
         />
 
-        <br />
+        <br/>
 
-        {errorMessage && <p style={{color: "red"}}>{errorMessage}</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
         <button type="submit">Registrate</button>
-
       </form>
     </div>
   );
