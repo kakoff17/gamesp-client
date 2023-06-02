@@ -5,6 +5,7 @@ function Navbar() {
     <nav>
 
         <Link to="/">Home</Link>
+        <Link to="/games">Lista de juegos</Link>
         <Link to="/auth/signup">Crea una cuenta</Link>
         <Link to="/auth/login">Acceso</Link>
 

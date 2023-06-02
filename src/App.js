@@ -7,6 +7,7 @@ import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Error from "./pages/errors/Error";
 import NotFound from "./pages/errors/NotFound";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* error handlers */}
         <Route path="/error" element={<Error />} />

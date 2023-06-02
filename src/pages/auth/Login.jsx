@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginService } from "../../services/auth.services";
+import { AuthContext } from "../../context/auth.context";
 
 function Login() {
+
+const { authenticateUser } = useContext(AuthContext)
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -20,16 +24,22 @@ function Login() {
         email,
         password,
       });
-      //console.log(response)
-      
+      console.log(response)
+
       // guarda el token de manera segura
-      localStorage.setItem()
+      localStorage.setItem("authToken", response.data.authToken)
+
+      await authenticateUser()
+
+      navigate("/profile")
 
     } catch (error) {
       if (error.response.status === 400) {
         setErrorMessage(error.response.data.message)
-      } else {
-        navigate("/error") 
+      }      
+      else {
+        console.log(error)
+        navigate("/error")
       }
     }
   };
