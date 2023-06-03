@@ -1,8 +1,19 @@
 .App {
-  text-align: center;
+  text-align: center;  
 }
 
 a {
   margin: 20px
 }
 
+.game-details-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.gameplay-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+}
