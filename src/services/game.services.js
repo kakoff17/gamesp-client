@@ -6,7 +6,7 @@ const gamesService = () => {
 
   const gamesDetailsService = (gameId) => {
     return service.get(`/games/${gameId}`)
-  }
+  }  
 
   export {
     gamesService,

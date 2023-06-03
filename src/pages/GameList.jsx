@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { gamesDetailsService } from "../services/game.services";
 import axios from "axios";
 import { Card, Col, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import { Vortex } from "react-loader-spinner";
 
 function GameList() {
   const [games, setGames] = useState();
@@ -25,8 +25,20 @@ function GameList() {
     getData();
   }, []);
 
+  const handleGameClick = (gameId) => {
+    navigate(`/game/${gameId}`);
+  };
+
   if (isLoading) {
-    return <h3>... buscando juegos</h3>;
+    return <Vortex
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="vortex-loading"
+    wrapperStyle={{}}
+    wrapperClass="vortex-wrapper"
+    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+  />
   }
 
   return (
@@ -36,7 +48,12 @@ function GameList() {
         {games.map((eachGame) => (
           <Col key={eachGame._id} md={4} className="mb-4">
             <Card>
-              <Card.Img variant="top" src={eachGame.image} alt={eachGame.name} width={200} height={150}/>
+              <a href={`/game/${eachGame._id}`} onClick={(e) => {
+                e.preventDefault();
+                handleGameClick(eachGame._id);
+              }}>
+                <Card.Img variant="top" src={eachGame.image} alt={eachGame.name} width={200} height={150} />
+              </a>
               <Card.Body>
                 <Card.Title>{eachGame.name}</Card.Title>
                 <Card.Text>Plataformas: {eachGame.platform.join(", ")}</Card.Text>

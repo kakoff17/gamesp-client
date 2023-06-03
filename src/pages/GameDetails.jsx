@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Row, Col, Card, Image } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { Vortex } from "react-loader-spinner";
 
 function GameDetails() {
   const [singleGame, setSingleGame] = useState(null);
@@ -26,7 +27,15 @@ function GameDetails() {
   };
 
   if (isLoading) {
-    return <h3>... buscando los detalles</h3>;
+    return <Vortex
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="vortex-loading"
+    wrapperStyle={{}}
+    wrapperClass="vortex-wrapper"
+    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+  />
   }
 
   return (
@@ -40,8 +49,7 @@ function GameDetails() {
               alt={singleGame.name}
               style={{ height: "400px", objectFit: "cover" }}
             />
-            <Card.Body>
-              <Card.Title>{singleGame.name}</Card.Title>
+            <Card.Body>              
               <Card.Text
                 style={{
                   maxWidth: "500px",
@@ -64,7 +72,9 @@ function GameDetails() {
         <Col md={6}>
           <Card>
             <Card.Body>
-              <Card.Title>Gameplay</Card.Title>
+              <Card.Title>
+                <strong>Video demostración</strong>
+              </Card.Title>
               <div className="embed-responsive embed-responsive-16by9">
                 <iframe
                   className="embed-responsive-item"

@@ -1,11 +1,14 @@
-function Home() {
+import { useState } from "react";
+import { searchService } from "../services/search.services";
+import { useParams } from "react-router-dom";
+
+function Home() { 
+
   return (
     <div>
-        
-        <h1>Home</h1>        
-        
+      
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
