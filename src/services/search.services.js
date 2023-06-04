@@ -8,4 +8,6 @@ const searchService = (searchTerm) => {
   });
 };
 
-export { searchService };
+export { 
+  searchService 
+};
