@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Vortex } from "react-loader-spinner";
 import ReactPlayer from 'react-player'
+import IsAdmin from "../../components/auth/IsAdmin";
 
 function GameDetails() {
   const [singleGame, setSingleGame] = useState(null);
@@ -82,11 +83,13 @@ function GameDetails() {
                 controls={true}
                 volume={0.05}
               />
-            </div>
+            </div>            
             </Card.Body>
           </Card>
         </Col>
       </Row>
+      <IsAdmin><button>Eliminar Juego</button> </IsAdmin>
+      <IsAdmin><button>Editar Juego</button></IsAdmin>
     </Container>
   );
 }

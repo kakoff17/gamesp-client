@@ -4,8 +4,7 @@ import { loginService } from "../../services/auth.services";
 import { AuthContext } from "../../context/auth.context";
 
 function Login() {
-
-const { authenticateUser } = useContext(AuthContext)
+  const { authenticateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -24,22 +23,20 @@ const { authenticateUser } = useContext(AuthContext)
         email,
         password,
       });
-      console.log(response)
+      console.log(response);
 
       // guarda el token de manera segura
-      localStorage.setItem("authToken", response.data.authToken)
+      localStorage.setItem("authToken", response.data.authToken);
 
-      await authenticateUser()
+      await authenticateUser();
 
-      navigate("/profile")
-
+      navigate("/profile");
     } catch (error) {
-      if (error.response.status === 400) {
-        setErrorMessage(error.response.data.message)
-      }      
-      else {
-        console.log(error)
-        navigate("/error")
+      if (error.response.status === 401) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        console.log(error);
+        navigate("/error");
       }
     }
   };
@@ -69,7 +66,7 @@ const { authenticateUser } = useContext(AuthContext)
 
         <br />
 
-        {errorMessage && <p style={{color: "red"}}>{errorMessage}</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
         <button type="submit">Acceso</button>
       </form>

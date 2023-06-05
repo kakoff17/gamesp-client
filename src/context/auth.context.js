@@ -33,7 +33,7 @@ function AuthWrapper(props) {
   };
 
   // el objeto de contexto que pasaremos
-  const passContext = {
+  const passedContext = {
     isLoggedIn,
     user,
     authenticateUser,
@@ -57,7 +57,7 @@ function AuthWrapper(props) {
 
   // la renderizacion de la app con el contexto
   return (
-    <AuthContext.Provider value={passContext}>
+    <AuthContext.Provider value={passedContext}>
       {props.children}
     </AuthContext.Provider>
   );

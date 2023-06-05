@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -7,9 +6,11 @@ import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import Error from "./pages/errors/Error";
 import NotFound from "./pages/errors/NotFound";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
 import GameList from "./pages/games/GameList";
 import GameDetails from "./pages/games/GameDetails";
+import EditProfile from "./pages/profile/EditProfile";
+import IsPrivate from "./components/auth/IsPrivate";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
         <Route path="/game/:gameId" element={<GameDetails />} />
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<IsPrivate><Profile /></IsPrivate>}/>
+        <Route path='/profile/edit' element={<IsPrivate> <EditProfile /> </IsPrivate>}/>
 
         {/* error handlers */}
         <Route path="/error" element={<Error />} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProfileService } from "../services/profile.services";
+import { getProfileService } from "../../services/profile.services";
 import { Link, useNavigate } from "react-router-dom";
 import { Vortex } from "react-loader-spinner";
 
