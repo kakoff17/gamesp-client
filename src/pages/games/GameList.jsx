@@ -1,0 +1,66 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Vortex } from "react-loader-spinner";
+
+function GameList() {
+  const [games, setGames] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate()
+
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:5005/api/games");
+      setGames(response.data);
+      setIsLoading(false);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+      navigate("/error")
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const handleGameClick = (gameId) => {
+    navigate(`/game/${gameId}`);
+  };
+
+  if (isLoading) {
+    return <Vortex
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="vortex-loading"
+    wrapperStyle={{}}
+    wrapperClass="vortex-wrapper"
+    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+  />
+  }
+
+  return (
+  <div class="container">
+  <h1 class="text-center mt-5 mb-5">Lista de videojuegos</h1>
+  <div class="row justify-content-center">
+    {games.map((eachGame) => (
+      <div key={eachGame._id} class="row justify-content-center">
+        <a href={`/game/${eachGame._id}`} onClick={(e) => {
+          e.preventDefault();
+          handleGameClick(eachGame._id);
+        }}>
+          <img src={eachGame.image} alt={eachGame.name} width={300} height={225} />
+        </a>
+        <div>
+          <h2>{eachGame.name}</h2>
+          <p class="text-center mt-1 mb-5">Plataformas: {eachGame.platform.join(", ")}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+  );
+}
+
+export default GameList;

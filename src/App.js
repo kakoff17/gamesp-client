@@ -8,8 +8,8 @@ import Login from "./pages/auth/Login";
 import Error from "./pages/errors/Error";
 import NotFound from "./pages/errors/NotFound";
 import Profile from "./pages/Profile";
-import GameList from "./pages/GameList";
-import GameDetails from "./pages/GameDetails";
+import GameList from "./pages/games/GameList";
+import GameDetails from "./pages/games/GameDetails";
 
 function App() {
   return (
