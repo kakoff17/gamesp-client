@@ -7,7 +7,7 @@ const AuthContext = createContext();
 function AuthWrapper(props) {
   // estados o funciones exportar
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [activeUser, setActiveUser] = useState(null);
   const [isLoading, setIsloading] = useState(true); // valida token de usuario
 
   useEffect(() => {
@@ -21,13 +21,13 @@ function AuthWrapper(props) {
       //console.log("token validado")
       //console.log(response)
       setIsLoggedIn(true);
-      setUser(response.data.payload);
+      setActiveUser(response.data.payload);
       setIsloading(false)
     } catch (error) {
       //console.log("token invalido o no hay token")
       //console.log(error)
       setIsLoggedIn(false);
-      setUser(null);
+      setActiveUser(null);
       setIsloading(false)
     }
   };
@@ -35,7 +35,7 @@ function AuthWrapper(props) {
   // el objeto de contexto que pasaremos
   const passedContext = {
     isLoggedIn,
-    user,
+    activeUser,
     authenticateUser,
   };
 

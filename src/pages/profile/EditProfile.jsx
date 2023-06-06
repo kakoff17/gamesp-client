@@ -28,7 +28,7 @@ function EditProfile() {
       await editProfileService(updatedUser);
       navigate("/profile");
     } catch (error) {
-      if (error.response.status === 400) {
+      if (error.response.status === 401) {
         setErrorMessage(error.response.data.errorMessage);
       } else {
         console.log(error)
@@ -40,11 +40,13 @@ function EditProfile() {
   const getData = async () => {
     try {
       const response = await getProfileService();
-      const { username, email, password } = response.data.user;
+      console.log(response)
+      const { username, email, password } = response.data;
       setUsername(username);
       setEmail(email);
       setPassword(password);
-    } catch (err) {
+    } catch (error) {
+      console.log(error)
       navigate("/error");
     }
   };

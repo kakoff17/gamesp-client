@@ -23,8 +23,7 @@ function Navbar() {
         {isLoggedIn && <NavLink to="/profile">Mi perfil</NavLink>}
         {isLoggedIn && <a onClick={handleLogout}>Cerrar sesion</a>}
         {!isLoggedIn && <NavLink to="/auth/signup">Crea una cuenta</NavLink>}
-        {!isLoggedIn &&<NavLink to="/auth/login">Acceso</NavLink>}
-        
+        {!isLoggedIn && <NavLink to="/auth/login">Acceso</NavLink>}
         
 
     </nav>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getProfileService } from "../../services/profile.services";
 import { Link, useNavigate } from "react-router-dom";
 import { Vortex } from "react-loader-spinner";
+import { Card } from "react-bootstrap";
 
 function Profile() {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ function Profile() {
       setUser(response.data);
       console.log(response.data);
       setIsLoading(false);
-    } catch (err) {
-      navigate("/error");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -40,12 +41,13 @@ function Profile() {
 
   return (
     <div>
+      <Card>
       <h4>Usuario: {user.username} </h4>
       <h4>Correo: {user.email}</h4>
       <h4>Rol: {user.role}</h4>
-      <Link to="/profile/edit">
-        <button>Editar Perfil</button>
-      </Link>
+      <h4>Juegos favoritos: {user.favGame}</h4>
+      <Link to="/profile/edit"><button>Editar Perfil</button></Link>
+      </Card>
     </div>
   );
 }

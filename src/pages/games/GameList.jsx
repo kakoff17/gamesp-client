@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Vortex } from "react-loader-spinner";
+import { gamesService } from "../../services/game.services";
 
 function GameList() {
   const [games, setGames] = useState();
@@ -10,10 +10,10 @@ function GameList() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:5005/api/games");
-      setGames(response.data);
+      const gameList = await await gamesService();
+      setGames(gameList.data);
       setIsLoading(false);
-      console.log(response.data);
+      console.log(gameList.data);
     } catch (error) {
       console.log(error);
       navigate("/error")
@@ -24,9 +24,9 @@ function GameList() {
     getData();
   }, []);
 
-  const handleGameClick = (gameId) => {
-    navigate(`/game/${gameId}`);
-  };
+  // const handleGameClick = (gameId) => {
+  //   navigate(`/game/${gameId}`);
+  // };
 
   if (isLoading) {
     return <Vortex
@@ -46,12 +46,9 @@ function GameList() {
   <div class="row justify-content-center">
     {games.map((eachGame) => (
       <div key={eachGame._id} class="row justify-content-center">
-        <a href={`/game/${eachGame._id}`} onClick={(e) => {
-          e.preventDefault();
-          handleGameClick(eachGame._id);
-        }}>
+        <Link to={`/games/${eachGame._id}`}>
           <img src={eachGame.image} alt={eachGame.name} width={300} height={225} />
-        </a>
+        </Link>
         <div>
           <h2>{eachGame.name}</h2>
           <p class="text-center mt-1 mb-5">Plataformas: {eachGame.platform.join(", ")}</p>
