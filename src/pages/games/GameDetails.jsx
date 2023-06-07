@@ -4,40 +4,57 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { Vortex } from "react-loader-spinner";
 import ReactPlayer from "react-player";
 import {
-  addFavGameService,
   deleteGameService,
   gamesDetailsService,
-  removeFavService,
 } from "../../services/game.services";
-import IsPrivate from "../../components/auth/IsPrivate";
+//import IsPrivate from "../../components/auth/IsPrivate";
 import { AuthContext } from "../../context/auth.context";
+import {
+  createCommentService,
+  deleteCommentService,
+  getCommentService,
+} from "../../services/comments.services";
+import {
+  addFavGameService,
+  removeFavService,
+} from "../../services/favorites.services";
 
 function GameDetails() {
   const [singleGame, setSingleGame] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { isLoggedIn } = useContext(AuthContext);
+  const [createComment, setCreateComment] = useState("");
+  const [allComments, setAllComments] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const params = useParams();
+  const { isLoggedIn, activeUser, authenticateUser } = useContext(AuthContext);
+
+  const { gameId } = useParams();
   const navigate = useNavigate();
+
+  const getData = async () => {
+    try {
+      const response = await gamesDetailsService(gameId);
+      const comments = await getCommentService(gameId)
+      //console.log(gameDetail);
+      //console.log(response)
+      //console.log(allComments)
+      setSingleGame(response.data);
+      setAllComments(comments);
+      //console.log(activeUser);      
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      navigate("/error");
+    }
+  };
 
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = async () => {
-    try {
-      const gameDetail = await gamesDetailsService(params.gameId);
-      console.log(gameDetail);
-      setSingleGame(gameDetail.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleDelete = async () => {
     try {
-      await deleteGameService(params.gameId);
+      await deleteGameService(gameId);
       navigate("/games");
     } catch (error) {
       console.log(error);
@@ -45,17 +62,53 @@ function GameDetails() {
     }
   };
 
-  const handleAddFavourite = async () => {
+  const handleCreateComment = async (event) => {
+    event.preventDefault();
+    const newComment = {
+      content: createComment,
+    };
     try {
-      await addFavGameService(params.gameId);
+      await createCommentService(gameId, newComment);
+      
+      const response = await gamesDetailsService(gameId);
+      const comments = response.data
+      setAllComments(comments);
+      setCreateComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteComment = async (commId) => {
+    try {
+      const response = await gamesDetailsService(gameId);
+      const comments = response.data.comment;
+      await deleteCommentService(gameId, commId);
+      const searchComment = comments.filter((eachComment) => {
+        return eachComment._id !== commId;
+      });
+      setAllComments(searchComment);
     } catch (error) {
       navigate("/error");
     }
   };
 
+  const handleAddFavourite = async () => {
+    try {
+      await addFavGameService(gameId);
+      await getData();
+    } catch (error) {
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.errorMessage);
+      } else {
+        navigate("/error");
+      }
+    }
+  };
+
   const handleDeleteFavourite = async () => {
     try {
-      await removeFavService(params.gameId);
+      await removeFavService(gameId);
+      await getData();
     } catch (error) {
       //console.log(error);
       navigate("/error");
@@ -77,16 +130,16 @@ function GameDetails() {
   }
 
   return (
-    <Container>
+    <Container className="mt-4">
       {isLoggedIn && (
-        <Button variant="primary" onClick={handleDelete}>
-          Eliminar Juego
-        </Button>
+        <Link to={`/games/${gameId}/edit`}>
+          <Button variant="primary">Editar Juego</Button>
+        </Link>
       )}
       {isLoggedIn && (
-        <Link to={`/games/${params.gameId}/edit`}>
-          <button>Editar Juego</button>
-        </Link>
+        <Button variant="danger" onClick={handleDelete}>
+          Eliminar Juego
+        </Button>
       )}
       <h1>Detalles de {singleGame.name}</h1>
       <Row className="justify-content-center">
@@ -111,6 +164,18 @@ function GameDetails() {
                 <strong>Plataformas disponibles:</strong>{" "}
                 {singleGame.platform.join(", ")}
               </Card.Text>
+              <section>
+                {isLoggedIn && (
+                  <button onClick={handleAddFavourite}>
+                    Añadir juego a favoritos
+                  </button>
+                )}
+                {isLoggedIn && (
+                  <button onClick={handleDeleteFavourite}>
+                    Eliminar de favoritos
+                  </button>
+                )}
+              </section>
             </Card.Body>
           </Card>
         </Col>
@@ -120,10 +185,7 @@ function GameDetails() {
               <Card.Title className="text-center">
                 <strong>Video demostración</strong>
               </Card.Title>
-              <div
-                className="d-flex justify-content-center"
-                
-              >
+              <div className="d-flex justify-content-center">
                 <ReactPlayer
                   url={singleGame.gameplay}
                   controls={true}
@@ -132,28 +194,45 @@ function GameDetails() {
               </div>
             </Card.Body>
           </Card>
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">
+                {isLoggedIn && <strong>Opina sobre el juego</strong>}
+              </Card.Title>
+              {isLoggedIn && (
+                <div>
+                  <form onSubmit={handleCreateComment}>
+                    <input
+                      type="text"
+                      name="comment"
+                      onChange={(e) => setCreateComment(e.target.value)}
+                      value={createComment}
+                    />
+                    <button type="submit">Enviar</button>
+                  </form>
+                  
+                </div>
+                
+              )}
+            </Card.Body>
+          </Card>
         </Col>
-        <section className="favBtn">
-          {isLoggedIn && (
-            <button onClick={handleAddFavourite}>Añadir a favoritos</button>
-          )}
-          {isLoggedIn && (
-            <button onClick={handleDeleteFavourite}>
-              Eliminar de favoritos
-            </button>
-          )}
-        </section>
       </Row>
-      {isLoggedIn && (
-        <Link to="/game/:gameId/comments">
-          <button>Ver comentarios del juego</button>
-        </Link>
-      )}
-      {isLoggedIn && (
-        <Link to="/game/:gameId/comments/new">
-          <button>Crea tu comentario del juego</button>
-        </Link>
-      )}
+      {/* <div>
+        {allComments && allComments.map(( content, author, id ) => {
+            return (
+              <div key={id}>
+                <p>Autor: {author && author.username}</p>
+                <p>{content}</p>
+                {isLoggedIn && (
+                  <button onClick={() => handleDeleteComment(id)}>
+                    Borrar comentario
+                  </button>
+                )}
+              </div>
+            );
+          })}
+      </div> */}
     </Container>
   );
 }

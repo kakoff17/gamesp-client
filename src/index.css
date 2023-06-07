@@ -10,7 +10,7 @@ body {
   background-size: cover; */
 }
 
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,6 +40,6 @@ body {
 .navbar a:not(:last-child) {
   margin-right: 10px;
 }
-
+ */
 
 

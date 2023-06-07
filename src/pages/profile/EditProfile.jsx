@@ -40,7 +40,7 @@ function EditProfile() {
   const getData = async () => {
     try {
       const response = await getProfileService();
-      console.log(response)
+      //console.log(response)
       const { username, email, password } = response.data;
       setUsername(username);
       setEmail(email);

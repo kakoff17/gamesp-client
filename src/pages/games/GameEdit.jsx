@@ -31,7 +31,7 @@ function GameEdit() {
   const getData = async () => {
     try {
       const singleGame = await gamesDetailsService(params.gameId);
-      console.log(singleGame);
+      //console.log(singleGame);
       setName(singleGame.data.name);
       setDescription(singleGame.data.description);
       setImage(singleGame.data.image);

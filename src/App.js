@@ -11,9 +11,8 @@ import GameList from "./pages/games/GameList";
 import GameDetails from "./pages/games/GameDetails";
 import EditProfile from "./pages/profile/EditProfile";
 import IsPrivate from "./components/auth/IsPrivate";
-import Comments from "./pages/comments/Comments";
-import CreateComment from "./pages/comments/CreateComment";
 import GameEdit from "./pages/games/GameEdit";
+import GameCreate from "./pages/games/GameCreate";
 
 function App() {
   return (
@@ -23,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<GameList />} />
+        <Route path="/games/create" element={<GameCreate />} />
         <Route path="/games/:gameId" element={<GameDetails />} />
         <Route path="/games/:gameId/edit" element={<GameEdit />} />
 
@@ -30,12 +30,8 @@ function App() {
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/login" element={<Login />} />        
         <Route path="/profile" element={<IsPrivate><Profile /></IsPrivate>}/>
-        <Route path="/profile/edit" element={<IsPrivate> <EditProfile /></IsPrivate>}/>
-
-        {/* RUTAS COMENTARIOS */}
-        <Route path="/game/:gameId/comments" element={<Comments />} />
-        <Route path="/game/:gameId/comments/new" element={<CreateComment />} />
-        
+        <Route path="/profile/edit" element={<EditProfile />}/>
+               
         {/* error handlers */}
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />

@@ -9,5 +9,5 @@ const searchService = (searchTerm) => {
 };
 
 export { 
-  searchService 
+  searchService
 };

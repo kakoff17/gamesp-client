@@ -14,7 +14,7 @@ function Profile() {
     try {
       const response = await getProfileService();      
       setUser(response.data);
-      console.log(response.data);
+      //console.log(response.data);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -47,6 +47,7 @@ function Profile() {
       <h4>Rol: {user.role}</h4>
       <h4>Juegos favoritos: {user.favGame}</h4>
       <Link to="/profile/edit"><button>Editar Perfil</button></Link>
+      <Link to="/games/create"><button>Añade un juego nuevo</button></Link>
       </Card>
     </div>
   );

@@ -23,7 +23,7 @@ function Login() {
         email,
         password,
       });
-      console.log(response);
+      //console.log(response);
 
       // guarda el token de manera segura
       localStorage.setItem("authToken", response.data.authToken);
