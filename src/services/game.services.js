@@ -14,7 +14,7 @@ const gamesDetailsService = (gameId) => {
 };
 
 const deleteGameService = (gameId) => {
-  return service.delete(`/games/${gameId}`);
+  return service.delete(`/games/${gameId}/delete`);
 };
 
 const editGameService = (gameId, updatedGame) => {

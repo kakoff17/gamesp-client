@@ -14,7 +14,7 @@ function GameEdit() {
   const [gameplay, setGameplay] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const params = useParams();
+  
   const navigate = useNavigate();
 
   const handleNameChange = (e) => setName(e.target.value);
@@ -24,14 +24,16 @@ function GameEdit() {
   const handlePlatformChange = (e) => setPlatform(e.target.value);
   const handleGameplayChange = (e) => setGameplay(e.target.value);
 
+  const { gameId } = useParams();
+
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = async () => {
+  const getData = async () => {    
     try {
-      const singleGame = await gamesDetailsService(params.gameId);
-      //console.log(singleGame);
+      const singleGame = await gamesDetailsService(gameId);
+      console.log(singleGame);
       setName(singleGame.data.name);
       setDescription(singleGame.data.description);
       setImage(singleGame.data.image);
@@ -49,16 +51,15 @@ function GameEdit() {
 
     try {
       const updatedGame = {
-        name: name,
-        description: description,
-        image: image,
-        genre: genre,
-        platform: platform,
-        gameplay: gameplay,
+        name: 
+        description,
+        image,
+        genre,
+        platform,
+        gameplay,
       };
-
-      await editGameService(params.gameId, updatedGame);
-      navigate(`/games/${params.gameId}`);
+      await editGameService(gameId, updatedGame);
+      navigate(`/games/${gameId}`);
     } catch (error) {
       console.log(error);
       navigate("/error");
@@ -82,7 +83,7 @@ function GameEdit() {
 
         <label htmlFor="description">Descripción:</label>
         <input
-          type="text"
+          type="textarea"
           name="description"
           onChange={handleDescriptionChange}
           value={description}

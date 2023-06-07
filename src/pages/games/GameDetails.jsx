@@ -34,12 +34,11 @@ function GameDetails() {
   const getData = async () => {
     try {
       const response = await gamesDetailsService(gameId);
-      const comments = await getCommentService(gameId)
       //console.log(gameDetail);
-      //console.log(response)
-      //console.log(allComments)
-      setSingleGame(response.data);
-      setAllComments(comments);
+      console.log(response)
+      const commentsResponse = await getCommentService(gameId)
+      setSingleGame(response.data.game);
+      setAllComments(commentsResponse.data);
       //console.log(activeUser);      
       setIsLoading(false);
     } catch (error) {
@@ -68,9 +67,10 @@ function GameDetails() {
       content: createComment,
     };
     try {
-      await createCommentService(gameId, newComment);
-      
-      const response = await gamesDetailsService(gameId);
+      const responseCreateComment = await createCommentService(gameId, newComment);
+      const response = await getCommentService(gameId);
+      //console.log(responseCreateComment)
+      console.log(response.data)
       const comments = response.data
       setAllComments(comments);
       setCreateComment("");
@@ -80,10 +80,8 @@ function GameDetails() {
   };
   const handleDeleteComment = async (commId) => {
     try {
-      const response = await gamesDetailsService(gameId);
-      const comments = response.data.comment;
       await deleteCommentService(gameId, commId);
-      const searchComment = comments.filter((eachComment) => {
+      const searchComment = allComments.filter((eachComment) => {
         return eachComment._id !== commId;
       });
       setAllComments(searchComment);
@@ -216,23 +214,28 @@ function GameDetails() {
               )}
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
-      {/* <div>
-        {allComments && allComments.map(( content, author, id ) => {
+          <Card>
+            <Card.Body>
+            <div>
+            <h1>Comentarios</h1>
+        {allComments.map(( {content, author,_id} ) => {
             return (
-              <div key={id}>
-                <p>Autor: {author && author.username}</p>
+              <div key={_id}>                
+                <strong>Autor: {author && author.username}</strong>
                 <p>{content}</p>
                 {isLoggedIn && (
-                  <button onClick={() => handleDeleteComment(id)}>
+                  <button onClick={() => handleDeleteComment(_id)}>
                     Borrar comentario
                   </button>
                 )}
               </div>
             );
           })}
-      </div> */}
+      </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>      
     </Container>
   );
 }

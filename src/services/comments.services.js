@@ -1,7 +1,7 @@
 import service from "./config.services.js";
 
 const getCommentService = (gameId) => {
-  return service.get(`/games/${gameId}`)
+  return service.get(`/games/${gameId}/comment`)
 }
 
 const createCommentService = (gameId, newComment) => {
