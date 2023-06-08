@@ -5,39 +5,45 @@ import { ColorRing } from "react-loader-spinner";
 const AuthContext = createContext();
 
 function AuthWrapper(props) {
-  // estados o funciones exportar
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeUser, setActiveUser] = useState(null);
   const [isLoading, setIsloading] = useState(true); // valida token de usuario
+  const [isAdmin, setIsAdmin] = useState("")
 
   useEffect(() => {
     authenticateUser();
   }, []);
 
-  // funcion que invocar el servicio de verify
+  // funcion que invoca el servicio de verify
   const authenticateUser = async () => {
     try {
       const response = await verifyService();
-      //console.log("token validado")
-      //console.log(response)
+      response.data.payload.role.includes("admin")?setIsAdmin(true) : setIsAdmin(false)
+      console.log(response)    
       setIsLoggedIn(true);
       setActiveUser(response.data.payload);
       setIsloading(false)
-    } catch (error) {
-      //console.log("token invalido o no hay token")
-      //console.log(error)
+      
+    } catch (error) {     
+      console.log(error)
       setIsLoggedIn(false);
       setActiveUser(null);
       setIsloading(false)
     }
-  };
+  };  
+  
+  console.log(activeUser)
 
   // el objeto de contexto que pasaremos
   const passedContext = {
     isLoggedIn,
     activeUser,
     authenticateUser,
+    isAdmin,
   };
+
+  
 
   if (isLoading) {
     return (

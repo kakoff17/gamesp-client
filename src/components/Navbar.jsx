@@ -1,39 +1,43 @@
-import { useContext } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
-import { AuthContext } from "../context/auth.context"
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+import logo from "../assets/logo.png";
 
 function Navbar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const {isLoggedIn, authenticateUser } = useContext(AuthContext)
+  const { isLoggedIn, authenticateUser } = useContext(AuthContext);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken")
+    localStorage.removeItem("authToken");
 
-    authenticateUser()
-    navigate("/")
-  }
+    authenticateUser();
+    navigate("/");
+  };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <NavLink className="navbar-brand" to="/">
-          Home
-        </NavLink>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+      <div>
+      <img
+        src={logo}
+        alt="Logo"
+        className="navbar-logo"
+        width={80}
+        height={30}
+      />
+        <div
+          className="collapse navbar-collapse"
+          id="navbarNav"
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">
+                Home
+              </NavLink>
+            </li>
+          </ul>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink className="nav-link" to="/games">
@@ -79,4 +83,4 @@ function Navbar() {
   );
 }
 
-export default Navbar
+export default Navbar;

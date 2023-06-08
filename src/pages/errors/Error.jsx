@@ -1,8 +1,10 @@
+import backgroundImage from "../../assets/1014.jpg";
+
 function Error() {
   return (
     <div style={{ 
-      backgroundImage: `url("https://images6.alphacoders.com/115/1153452.jpg")`,
-      height: '1000px',
+      backgroundImage: {backgroundImage},
+      height: "1000px",
       width: "auto",
       backgroundSize: "cover"
     }}

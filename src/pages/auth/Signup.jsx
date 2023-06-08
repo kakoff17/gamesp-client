@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signupService } from "../../services/auth.services";
+import { Form, Button, Container } from "react-bootstrap";
 
 function Signup() {
   const navigate = useNavigate();
@@ -32,45 +33,49 @@ function Signup() {
   };
 
   return (
-    <div>
-      <h1>Registrate</h1>
-
-      <form onSubmit={handleSignup}>
-        <label>Nombre de usuario:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-
-        <br/>
-
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-
-        <br/>
-
-        <label>Contraseña:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-
-        <br/>
-
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-
-        <button type="submit">Registrate</button>
-      </form>
-    </div>
+    <Container className="d-flex justify-content-center">
+      <div style={{ width: "300px" }}>
+        <h1>Regístrate</h1>
+  
+        <Form onSubmit={handleSignup}>
+          <Form.Group>
+            <Form.Label>Nombre de usuario:</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </Form.Group>
+  
+          <Form.Group>
+            <Form.Label>Email:</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </Form.Group>
+  
+          <Form.Group>
+            <Form.Label>Contraseña:</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </Form.Group>
+  
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+  
+          <Button variant="primary" className="mt-4 mb-4" type="submit">
+            Regístrate
+          </Button>
+        </Form>
+      </div>
+    </Container>
   );
 }
 

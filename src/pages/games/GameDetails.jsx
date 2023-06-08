@@ -26,7 +26,7 @@ function GameDetails() {
   const [allComments, setAllComments] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { isLoggedIn, activeUser, authenticateUser } = useContext(AuthContext);
+  const { isLoggedIn, isAdmin } = useContext(AuthContext);
 
   const { gameId } = useParams();
   const navigate = useNavigate();
@@ -35,11 +35,11 @@ function GameDetails() {
     try {
       const response = await gamesDetailsService(gameId);
       //console.log(gameDetail);
-      console.log(response)
-      const commentsResponse = await getCommentService(gameId)
+      //console.log(response);
+      const commentsResponse = await getCommentService(gameId);
       setSingleGame(response.data.game);
       setAllComments(commentsResponse.data);
-      //console.log(activeUser);      
+      //console.log(activeUser);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -67,17 +67,21 @@ function GameDetails() {
       content: createComment,
     };
     try {
-      const responseCreateComment = await createCommentService(gameId, newComment);
+      const responseCreateComment = await createCommentService(
+        gameId,
+        newComment
+      );
       const response = await getCommentService(gameId);
       //console.log(responseCreateComment)
-      console.log(response.data)
-      const comments = response.data
+      console.log(response.data);
+      const comments = response.data;
       setAllComments(comments);
       setCreateComment("");
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleDeleteComment = async (commId) => {
     try {
       await deleteCommentService(gameId, commId);
@@ -128,13 +132,13 @@ function GameDetails() {
   }
 
   return (
-    <Container className="mt-4">
-      {isLoggedIn && (
+    <Container className="mt-4">      
+      {isAdmin && (
         <Link to={`/games/${gameId}/edit`}>
           <Button variant="primary">Editar Juego</Button>
         </Link>
       )}
-      {isLoggedIn && (
+      {isAdmin && (
         <Button variant="danger" onClick={handleDelete}>
           Eliminar Juego
         </Button>
@@ -208,34 +212,32 @@ function GameDetails() {
                     />
                     <button type="submit">Enviar</button>
                   </form>
-                  
                 </div>
-                
               )}
             </Card.Body>
           </Card>
           <Card>
             <Card.Body>
-            <div>
-            <h1>Comentarios</h1>
-        {allComments.map(( {content, author,_id} ) => {
-            return (
-              <div key={_id}>                
-                <strong>Autor: {author && author.username}</strong>
-                <p>{content}</p>
-                {isLoggedIn && (
-                  <button onClick={() => handleDeleteComment(_id)}>
-                    Borrar comentario
-                  </button>
-                )}
+              <div>
+                <h1>Comentarios</h1>
+                {allComments.map(({ content, author, _id }) => {
+                  return (
+                    <div key={_id}>
+                      <strong>Autor: {author && author.username}</strong>
+                      <p>{content}</p>
+                      {isLoggedIn && (
+                        <button onClick={() => handleDeleteComment(_id)}>
+                          Borrar comentario
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-      </div>
             </Card.Body>
           </Card>
         </Col>
-      </Row>      
+      </Row>
     </Container>
   );
 }

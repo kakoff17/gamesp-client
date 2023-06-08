@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 import {
   editGameService,
   gamesDetailsService,
@@ -14,7 +15,6 @@ function GameEdit() {
   const [gameplay, setGameplay] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  
   const navigate = useNavigate();
 
   const handleNameChange = (e) => setName(e.target.value);
@@ -30,16 +30,17 @@ function GameEdit() {
     getData();
   }, []);
 
-  const getData = async () => {    
+  const getData = async () => {
     try {
       const singleGame = await gamesDetailsService(gameId);
+      const { name, description, image, genre, platform, gameplay } = singleGame.data.game;
       console.log(singleGame);
-      setName(singleGame.data.name);
-      setDescription(singleGame.data.description);
-      setImage(singleGame.data.image);
-      setGenre(singleGame.data.genre);
-      setPlatform(singleGame.data.platform);
-      setGameplay(singleGame.data.gameplay);
+      setName(name);
+      setDescription(description);
+      setImage(image);
+      setGenre(genre);
+      setPlatform(platform);
+      setGameplay(gameplay);
     } catch (error) {
       console.log(error);
       //navigate a error
@@ -51,7 +52,7 @@ function GameEdit() {
 
     try {
       const updatedGame = {
-        name: 
+        name,
         description,
         image,
         genre,
@@ -65,73 +66,79 @@ function GameEdit() {
       navigate("/error");
     }
   };
-
+console.log(name)
   return (
-    <div>
-      <h3>Editar Juego</h3>
-
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nombre:</label>
-        <input
-          type="text"
-          name="name"
+    <div className="d-flex justify-content-center">
+      <div>
+        <h3>Editar Juego</h3>
+        
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="name">
+            <Form.Label>Nombre:</Form.Label>
+            <Form.Control
+              type="text"
           onChange={handleNameChange}
           value={name}
-        />
+              style={{ width: "300px" }}
+            />
+          </Form.Group>
 
-        <br />
+          <Form.Group controlId="description">
+            <Form.Label>Descripción:</Form.Label>
+            <Form.Control
+              as="textarea"
+              onChange={handleDescriptionChange}
+              value={description}
+              style={{ width: "300px" }}
+            />
+          </Form.Group>
 
-        <label htmlFor="description">Descripción:</label>
-        <input
-          type="textarea"
-          name="description"
-          onChange={handleDescriptionChange}
-          value={description}
-        />
+          <Form.Group controlId="image">
+            <Form.Label>Imagen:</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={handleImageChange}
+              value={image}
+              style={{ width: "300px" }}
+            />
+          </Form.Group>
 
-        <br />
+          <Form.Group controlId="genre">
+            <Form.Label>Género:</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={handleGenreChange}
+              value={genre}
+              style={{ width: "300px" }}
+            />
+          </Form.Group>
 
-        <label htmlFor="image">Imagen</label>
-        <input
-          type="text"
-          name="image"
-          onChange={handleImageChange}
-          value={image}
-        />
+          <Form.Group controlId="platform">
+            <Form.Label>Plataformas:</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={handlePlatformChange}
+              value={platform}
+              style={{ width: "300px" }}
+            />
+          </Form.Group>
 
-        <br />
+          <Form.Group controlId="gameplay">
+            <Form.Label>Gameplay:</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={handleGameplayChange}
+              value={gameplay}
+              style={{ width: "300px" }}
+            />
+          </Form.Group>
 
-        <label htmlFor="genre">Genero</label>
-        <input
-          type="text"
-          name="genre"
-          onChange={handleGenreChange}
-          value={genre}
-        />
-
-        <br />
-
-        <label htmlFor="platform">Plataformas</label>
-        <input
-          type="text"
-          name="platform"
-          onChange={handlePlatformChange}
-          value={platform}
-        />
-
-        <br />
-
-        <label htmlFor="gameplay">Video Gameplay</label>
-        <input
-          type="text"
-          name="gameplay"
-          onChange={handleGameplayChange}
-          value={gameplay}
-        />
-        <br />
-        <button type="submit">Guardar</button>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      </form>
+          <Button variant="primary" type="submit">
+            Guardar
+          </Button>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        </Form>
+      </div>
     </div>
   );
 }

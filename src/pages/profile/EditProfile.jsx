@@ -4,6 +4,7 @@ import {
   getProfileService,
   editProfileService,
 } from "../../services/profile.services";
+import { Button, Container, Form } from "react-bootstrap";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -56,39 +57,46 @@ function EditProfile() {
   }, []);
 
   return (
-    <div>
-      <h3>Editar datos de usuario</h3>
+    <Container className="d-flex justify-content-center">
+      <div style={{ width: '300px' }}>
+        <h3>Editar datos de usuario</h3>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label>Nombre de usuario</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              onChange={handleUsernameChange}
+              value={username}
+            />
+          </Form.Group>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Nombre de usuario</label>
-        <input
-          type="text"
-          name="username"
-          onChange={handleUsernameChange}
-          value={username}
-        />
-        <br />
+          <Form.Group>
+            <Form.Label>Correo electrónico</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              onChange={handleEmailChange}
+              value={email}
+            />
+          </Form.Group>
 
-        <label htmlFor="email">Correo electrónico</label>
-        <input
-          type="email"
-          name="email"
-          onChange={handleEmailChange}
-          value={email}
-        />
-        <br />
-        <label htmlFor="password">Nueva contraseña</label>
-        <input
-          type="password"
-          name="password"
-          onChange={handlePasswordChange}
-          checked={password}
-        />
-        <br />
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button type="submit">Editar</button>
-      </form>
-    </div>
+          <Form.Group>
+            <Form.Label>Nueva contraseña</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              onChange={handlePasswordChange}
+              value={password}
+            />
+          </Form.Group>
+
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
+          <Button variant="primary" className="mt-4 mb-4" type="submit">Editar</Button>
+        </Form>
+      </div>
+    </Container>
   );
 }
 

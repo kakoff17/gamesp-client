@@ -3,16 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { createGameService } from "../../services/game.services";
 import { Button, Form } from "react-bootstrap";
 
-function GameCreate(props) {  
-
+function GameCreate(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [genre, setGenre] = useState("");
-  const [platform, setPlatform] = useState("");
+  const [genre, setGenre] = useState([]);
+  const [platform, setPlatform] = useState([]);
   const [gameplay, setGameplay] = useState("");
 
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -36,16 +35,14 @@ function GameCreate(props) {
         gameplay: gameplay,
       };
 
-      await createGameService(newGame);      
+      await createGameService(newGame);
       navigate("/games");
-
     } catch (error) {
-      if (error.response.status === 400){
-       setErrorMessage(error.response.data.errorMessage)
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.errorMessage);
+      } else {
+        navigate("/error");
       }
-      else{
-      navigate("/error")
-    }
     }
   };
 
@@ -60,11 +57,11 @@ function GameCreate(props) {
             name="name"
             onChange={handleNameChange}
             value={name}
-            className="mx-auto" 
-            style={{ width: '300px' }} 
+            className="mx-auto"
+            style={{ width: "300px" }}
           />
         </Form.Group>
-        
+
         <Form.Group controlId="description">
           <Form.Label>Descripción:</Form.Label>
           <Form.Control
@@ -72,11 +69,11 @@ function GameCreate(props) {
             name="description"
             onChange={handleDescriptionChange}
             value={description}
-            className="mx-auto" 
-            style={{ width: '300px' }} 
+            className="mx-auto"
+            style={{ width: "300px" }}
           />
         </Form.Group>
-        
+
         <Form.Group controlId="image">
           <Form.Label>Imagen (URL):</Form.Label>
           <Form.Control
@@ -84,35 +81,51 @@ function GameCreate(props) {
             name="image"
             onChange={handleImageChange}
             value={image}
-            className="mx-auto" 
-            style={{ width: '300px' }} 
+            className="mx-auto"
+            style={{ width: "300px" }}
           />
         </Form.Group>
-        
+
         <Form.Group controlId="genre">
           <Form.Label>Género:</Form.Label>
-          <Form.Control
-            type="text"
+          <Form.Select
+            multiple
             name="genre"
             onChange={handleGenreChange}
-            value={genre}
-            className="mx-auto" 
-            style={{ width: '300px' }} 
-          />
+            value={[genre]}
+            className="mx-auto"
+            style={{ width: "300px" }}
+          >
+            <option value="Acción">Acción</option>
+            <option value="Estrategia">Estrategia</option>
+            <option value="Rol">Rol</option>
+            <option value="Disparos">Disparos</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Carreras">Carreras</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Educación">Educación</option>
+            <option value="Competitivo Competitivo multijugador">Competitivo multijugador</option>
+          </Form.Select>
         </Form.Group>
-        
+
         <Form.Group controlId="platform">
-          <Form.Label>Plataformas:</Form.Label>
-          <Form.Control
-            type="text"
+          <Form.Label>Plataformas: (PS4, PS5, PC, XBOX, NINTENDO)</Form.Label>
+          <Form.Select
+            multiple
             name="platform"
             onChange={handlePlatformChange}
-            value={platform}
-            className="mx-auto" 
-            style={{ width: '300px' }} 
-          />
+            value={[platform]}
+            className="mx-auto"
+            style={{ width: "300px" }}
+          >
+            <option value="PS4">PS4</option>
+            <option value="PS5">PS5</option>
+            <option value="PC">PC</option>
+            <option value="XBOX">XBOX</option>
+            <option value="NINTENDO">NINTENDO</option>
+          </Form.Select>
         </Form.Group>
-        
+
         <Form.Group controlId="gameplay">
           <Form.Label>Gameplay video (URL):</Form.Label>
           <Form.Control
@@ -121,14 +134,14 @@ function GameCreate(props) {
             onChange={handleGameplayChange}
             value={gameplay}
             className="mx-auto"
-            style={{ width: '300px' }} 
+            style={{ width: "300px" }}
           />
         </Form.Group>
-  
+
         <Button variant="primary" type="submit">
           Añade el juego
         </Button>
-        
+
         {errorMessage && (
           <p style={{ fontWeight: "bold", color: "red" }}>{errorMessage}</p>
         )}

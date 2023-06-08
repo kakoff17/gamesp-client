@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getProfileService } from "../../services/profile.services";
 import { Link, useNavigate } from "react-router-dom";
 import { Vortex } from "react-loader-spinner";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
+import { AuthContext } from "../../context/auth.context";
+
 
 function Profile() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  const { isAdmin } = useContext(AuthContext);
 
   const getData = async () => {
     try {
@@ -42,12 +46,22 @@ function Profile() {
   return (
     <div>
       <Card>
-      <h4>Usuario: {user.username} </h4>
-      <h4>Correo: {user.email}</h4>
-      <h4>Rol: {user.role}</h4>
-      <h4>Juegos favoritos: {user.favGame}</h4>
-      <Link to="/profile/edit"><button>Editar Perfil</button></Link>
-      <Link to="/games/create"><button>Añade un juego nuevo</button></Link>
+        <Card.Body>
+          <Card.Title>Usuario: {user.username}</Card.Title>
+          <Card.Text>
+            <p>Correo: {user.email}</p>
+            <p>Rol: {user.role}</p>
+            <p>Juegos favoritos: {user.favGame}</p>
+          </Card.Text>
+          <Link to="/profile/edit">
+            <Button variant="primary">Editar Perfil</Button>
+          </Link>
+          {isAdmin && (
+            <Link to="/games/create">
+              <Button variant="success">Añade un juego nuevo</Button>
+            </Link>
+          )}
+        </Card.Body>
       </Card>
     </div>
   );

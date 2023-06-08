@@ -13,6 +13,8 @@ import EditProfile from "./pages/profile/EditProfile";
 import IsPrivate from "./components/auth/IsPrivate";
 import GameEdit from "./pages/games/GameEdit";
 import GameCreate from "./pages/games/GameCreate";
+import Footer from "./components/Footer";
+import IsAdmin from "./components/auth/IsAdmin";
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<GameList />} />
-        <Route path="/games/create" element={<GameCreate />} />
+        <Route path="/games/create" element={<IsAdmin><GameCreate /></IsAdmin>}/>
         <Route path="/games/:gameId" element={<GameDetails />} />
         <Route path="/games/:gameId/edit" element={<GameEdit />} />
 
@@ -36,6 +38,8 @@ function App() {
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      <Footer />
     </div>
   );
 }

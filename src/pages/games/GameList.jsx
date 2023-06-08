@@ -41,9 +41,9 @@ function GameList() {
   }
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
       {games.map((eachGame) => (
-        <Card key={eachGame._id} style={{ width: '300px', margin: '10px' }}>
+        <Card key={eachGame._id} style={{ width: "280px", margin: "10px"}}>
           <Card.Img variant="top" src={eachGame.image} alt={eachGame.name} />
           <Card.Body>
             <Card.Title>{eachGame.name}</Card.Title>
