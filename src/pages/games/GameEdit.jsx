@@ -33,7 +33,8 @@ function GameEdit() {
   const getData = async () => {
     try {
       const singleGame = await gamesDetailsService(gameId);
-      const { name, description, image, genre, platform, gameplay } = singleGame.data.game;
+      const { name, description, image, genre, platform, gameplay } =
+        singleGame.data.game;
       console.log(singleGame);
       setName(name);
       setDescription(description);
@@ -66,19 +67,19 @@ function GameEdit() {
       navigate("/error");
     }
   };
-console.log(name)
+  console.log(name);
   return (
     <div className="d-flex justify-content-center">
       <div>
         <h3>Editar Juego</h3>
-        
+
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="name">
             <Form.Label>Nombre:</Form.Label>
             <Form.Control
               type="text"
-          onChange={handleNameChange}
-          value={name}
+              onChange={handleNameChange}
+              value={name}
               style={{ width: "300px" }}
             />
           </Form.Group>
@@ -133,7 +134,7 @@ console.log(name)
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" className="mt-4 mb-4" type="submit">
             Guardar
           </Button>
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}

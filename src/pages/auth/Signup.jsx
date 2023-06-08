@@ -36,7 +36,7 @@ function Signup() {
     <Container className="d-flex justify-content-center">
       <div style={{ width: "300px" }}>
         <h1>Regístrate</h1>
-  
+
         <Form onSubmit={handleSignup}>
           <Form.Group>
             <Form.Label>Nombre de usuario:</Form.Label>
@@ -47,7 +47,7 @@ function Signup() {
               onChange={handleUsernameChange}
             />
           </Form.Group>
-  
+
           <Form.Group>
             <Form.Label>Email:</Form.Label>
             <Form.Control
@@ -57,7 +57,7 @@ function Signup() {
               onChange={handleEmailChange}
             />
           </Form.Group>
-  
+
           <Form.Group>
             <Form.Label>Contraseña:</Form.Label>
             <Form.Control
@@ -67,9 +67,9 @@ function Signup() {
               onChange={handlePasswordChange}
             />
           </Form.Group>
-  
+
           {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-  
+
           <Button variant="primary" className="mt-4 mb-4" type="submit">
             Regístrate
           </Button>

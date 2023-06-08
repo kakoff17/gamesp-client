@@ -89,10 +89,9 @@ function GameCreate(props) {
         <Form.Group controlId="genre">
           <Form.Label>Género:</Form.Label>
           <Form.Select
-            multiple
+            multiple={true}
             name="genre"
             onChange={handleGenreChange}
-            value={[genre]}
             className="mx-auto"
             style={{ width: "300px" }}
           >
@@ -104,17 +103,18 @@ function GameCreate(props) {
             <option value="Carreras">Carreras</option>
             <option value="Deportes">Deportes</option>
             <option value="Educación">Educación</option>
-            <option value="Competitivo Competitivo multijugador">Competitivo multijugador</option>
+            <option value="Competitivo Competitivo multijugador">
+              Competitivo multijugador
+            </option>
           </Form.Select>
         </Form.Group>
 
         <Form.Group controlId="platform">
           <Form.Label>Plataformas: (PS4, PS5, PC, XBOX, NINTENDO)</Form.Label>
           <Form.Select
-            multiple
+            multiple={true}
             name="platform"
             onChange={handlePlatformChange}
-            value={[platform]}
             className="mx-auto"
             style={{ width: "300px" }}
           >

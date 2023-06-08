@@ -5,7 +5,6 @@ import { Vortex } from "react-loader-spinner";
 import { Button, Card } from "react-bootstrap";
 import { AuthContext } from "../../context/auth.context";
 
-
 function Profile() {
   const navigate = useNavigate();
 
@@ -16,7 +15,7 @@ function Profile() {
 
   const getData = async () => {
     try {
-      const response = await getProfileService();      
+      const response = await getProfileService();
       setUser(response.data);
       //console.log(response.data);
       setIsLoading(false);
@@ -41,7 +40,8 @@ function Profile() {
         colors={["red", "green", "blue", "yellow", "orange", "purple"]}
       />
     );
-  }
+  }  
+  
 
   return (
     <div>
@@ -51,14 +51,18 @@ function Profile() {
           <Card.Text>
             <p>Correo: {user.email}</p>
             <p>Rol: {user.role}</p>
-            <p>Juegos favoritos: {user.favGame}</p>
+            </Card.Text><Card.Text>
+            <p>Juegos favoritos:</p>
+            {user.favGame.map(({ name, _id }) => {
+              return <p key={_id}>{name}</p>;
+            })}
           </Card.Text>
           <Link to="/profile/edit">
             <Button variant="primary">Editar Perfil</Button>
           </Link>
           {isAdmin && (
             <Link to="/games/create">
-              <Button variant="success">Añade un juego nuevo</Button>
+              <Button variant="success">Añadir un juego nuevo</Button>
             </Link>
           )}
         </Card.Body>

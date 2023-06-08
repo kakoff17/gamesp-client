@@ -8,7 +8,9 @@ function Navbar() {
 
   const { isLoggedIn, authenticateUser } = useContext(AuthContext);
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
+
     localStorage.removeItem("authToken");
 
     authenticateUser();
@@ -17,19 +19,15 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
-
       <div>
-      <img
-        src={logo}
-        alt="Logo"
-        className="navbar-logo"
-        width={80}
-        height={30}
-      />
-        <div
-          className="collapse navbar-collapse"
-          id="navbarNav"
-        >
+        <img
+          src={logo}
+          alt="Logo"
+          className="navbar-logo"
+          width={80}
+          height={30}
+        />
+        <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
@@ -55,7 +53,7 @@ function Navbar() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#" onClick={handleLogout}>
+                  <a className="nav-link" href="/" onClick={handleLogout}>
                     Cerrar sesión
                   </a>
                 </li>

@@ -42,38 +42,38 @@ function Login() {
     }
   };
 
-  return (    
-      <Container className="d-flex justify-content-center">
-      <div style={{ width: '300px' }}>
-      <h1>Acceder</h1>  
-      <Form onSubmit={handleLogin}>
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </Form.Group>
-  
-        <Form.Group controlId="formPassword">
-          <Form.Label>Contraseña:</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </Form.Group>
-  
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-  
-        <Button variant="primary" className="mt-4 mb-4" type="submit">
-          Acceso
-        </Button>
-      </Form>
-    </div>
+  return (
+    <Container className="d-flex justify-content-center">
+      <div style={{ width: "300px" }}>
+        <h1>Acceder</h1>
+        <Form onSubmit={handleLogin}>
+          <Form.Group controlId="formEmail">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formPassword">
+            <Form.Label>Contraseña:</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </Form.Group>
+
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
+          <Button variant="primary" className="mt-4 mb-4" type="submit">
+            Acceso
+          </Button>
+        </Form>
+      </div>
     </Container>
   );
 }

@@ -2,16 +2,15 @@ import backgroundImage from "../../assets/1014.jpg";
 
 function Error() {
   return (
-    <div style={{ 
-      backgroundImage: {backgroundImage},
-      height: "1000px",
-      width: "auto",
-      backgroundSize: "cover"
-    }}
-      
-      >
-    </div>
-  )
+    <div
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        height: "1500px",
+        width: "auto",
+        backgroundSize: "cover",
+      }}
+    ></div>
+  );
 }
 
-export default Error
+export default Error;

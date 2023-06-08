@@ -32,7 +32,7 @@ function EditProfile() {
       if (error.response.status === 401) {
         setErrorMessage(error.response.data.errorMessage);
       } else {
-        console.log(error)
+        console.log(error);
         navigate("/error");
       }
     }
@@ -47,7 +47,7 @@ function EditProfile() {
       setEmail(email);
       setPassword(password);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       navigate("/error");
     }
   };
@@ -58,7 +58,7 @@ function EditProfile() {
 
   return (
     <Container className="d-flex justify-content-center">
-      <div style={{ width: '300px' }}>
+      <div style={{ width: "300px" }}>
         <h3>Editar datos de usuario</h3>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
@@ -86,14 +86,15 @@ function EditProfile() {
             <Form.Control
               type="password"
               name="password"
-              onChange={handlePasswordChange}
-              value={password}
+              onChange={handlePasswordChange}              
             />
           </Form.Group>
 
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
-          <Button variant="primary" className="mt-4 mb-4" type="submit">Editar</Button>
+          <Button variant="primary" className="mt-4 mb-4" type="submit">
+            Editar
+          </Button>
         </Form>
       </div>
     </Container>

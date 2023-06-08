@@ -5,10 +5,10 @@ const addFavGameService = (gameId) => {
   };
   
   const removeFavService = (gameId) => {
-    return service.post(`/games/${gameId}/fav/delete`);
+    return service.delete(`/games/${gameId}/fav/delete`);
   };
 
 export {
   addFavGameService,
-  removeFavService,  
-};
+  removeFavService,
+}
