@@ -50,7 +50,7 @@ function GameCreate(props) {
     <div className="form">
       <h2>Añade un juego a la colección</h2>
       <Form onSubmit={handleSubmit} encType="multipart/form-data">
-        <Form.Group controlId="name">
+        <Form.Group className="mt-3" controlId="name">
           <Form.Label>Nombre del juego:</Form.Label>
           <Form.Control
             type="text"
@@ -62,7 +62,7 @@ function GameCreate(props) {
           />
         </Form.Group>
 
-        <Form.Group controlId="description">
+        <Form.Group className="mt-3" controlId="description">
           <Form.Label>Descripción:</Form.Label>
           <Form.Control
             as="textarea"
@@ -74,9 +74,10 @@ function GameCreate(props) {
           />
         </Form.Group>
 
-        <Form.Group controlId="image">
-          <Form.Label>Imagen (URL):</Form.Label>
+        <Form.Group className="mt-3" controlId="image">
+          <Form.Label>Imagen</Form.Label>
           <Form.Control
+            placeholder="Inserta una URL"
             type="text"
             name="image"
             onChange={handleImageChange}
@@ -86,7 +87,7 @@ function GameCreate(props) {
           />
         </Form.Group>
 
-        <Form.Group controlId="genre">
+        <Form.Group className="mt-3" controlId="genre">
           <Form.Label>Género:</Form.Label>
           <Form.Select
             multiple={true}
@@ -109,8 +110,8 @@ function GameCreate(props) {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group controlId="platform">
-          <Form.Label>Plataformas: (PS4, PS5, PC, XBOX, NINTENDO)</Form.Label>
+        <Form.Group className="mt-3" controlId="platform">
+          <Form.Label>Plataformas: </Form.Label>
           <Form.Select
             multiple={true}
             name="platform"
@@ -126,9 +127,10 @@ function GameCreate(props) {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group controlId="gameplay">
-          <Form.Label>Gameplay video (URL):</Form.Label>
+        <Form.Group className="mt-3" controlId="gameplay">
+          <Form.Label>Gameplay video:</Form.Label>
           <Form.Control
+          placeholder="Inserta una URL"
             type="text"
             name="gameplay"
             onChange={handleGameplayChange}
@@ -138,7 +140,7 @@ function GameCreate(props) {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button className="mt-4 mb-4" variant="primary" type="submit">
           Añade el juego
         </Button>
 

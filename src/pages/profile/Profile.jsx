@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { getProfileService } from "../../services/profile.services";
 import { Link, useNavigate } from "react-router-dom";
 import { Vortex } from "react-loader-spinner";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { AuthContext } from "../../context/auth.context";
 
 function Profile() {
@@ -40,33 +40,53 @@ function Profile() {
         colors={["red", "green", "blue", "yellow", "orange", "purple"]}
       />
     );
-  }  
-  
+  }
 
   return (
     <div>
-      <Card>
-        <Card.Body>
-          <Card.Title>Usuario: {user.username}</Card.Title>
-          <Card.Text>
-            <p>Correo: {user.email}</p>
-            <p>Rol: {user.role}</p>
-            </Card.Text><Card.Text>
-            <p>Juegos favoritos:</p>
-            {user.favGame.map(({ name, _id }) => {
-              return <p key={_id}>{name}</p>;
-            })}
-          </Card.Text>
-          <Link to="/profile/edit">
-            <Button variant="primary">Editar Perfil</Button>
-          </Link>
-          {isAdmin && (
-            <Link to="/games/create">
-              <Button variant="success">Añadir un juego nuevo</Button>
-            </Link>
-          )}
-        </Card.Body>
-      </Card>
+      <Container>
+    <Row className="justify-content-between">
+      <Col>
+        <Card className="mt-4" style={{ width: "600px" }}>
+            <Card.Body>
+              <Card.Title>Usuario: {user.username}</Card.Title>
+              <Card.Text>
+                <p>Correo: {user.email}</p>
+                <p>Rol: {user.role}</p>
+                <Link to="/profile/edit">
+                  <Button variant="primary">Editar Perfil</Button>
+                </Link>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card className="mt-4" style={{ width: "600px" }}>
+            <Card.Body>
+              <Card.Text>
+                <p>Juegos favoritos:</p>
+                {user.favGame.map(({ name, _id }) => {
+                  const gameId = encodeURIComponent(_id); // Codificar el ID del juego para asegurar la URL correcta
+                  const url = `/games/${gameId}`; // Construir la URL del enlace
+                  return (
+                    <a href={url} key={_id}>
+                      {name}
+                    </a>
+                  );
+                })}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      </Container>
+      {isAdmin && (
+        <Link to="/games/create">
+          <Button className="mt-4 mb-4" variant="success">
+            Añadir un juego nuevo
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }

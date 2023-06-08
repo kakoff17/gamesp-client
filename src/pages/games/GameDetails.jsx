@@ -161,7 +161,7 @@ function GameDetails() {
           Eliminar Juego
         </Button>
       )}
-      <h1>Detalles de {singleGame.name}</h1>
+      <h1 className="text-center mt-4 mb-4">{singleGame.name}</h1>
       <Row className="justify-content-center">
         <Col md={6}>
           <Card className="mb-4">
@@ -221,7 +221,7 @@ function GameDetails() {
           <Card>
             <Card.Body>
               <Card.Title className="text-center">
-                {isLoggedIn && <strong>Opina sobre el juego</strong>}
+                {isLoggedIn && <strong>Deja tu opinión</strong>}
               </Card.Title>
               {isLoggedIn && (
                 <div>
@@ -233,6 +233,7 @@ function GameDetails() {
                       value={createComment}
                     />
                     <button type="submit">Enviar</button>
+
                   </form>
                 </div>
               )}

@@ -19,6 +19,7 @@ return (
       type="text"
       name="search"
       value={searchInput}
+      placeholder="Busca por nombre o plataforma"
       onChange={handsleSearchChange}
       style={{
         padding: "10px",

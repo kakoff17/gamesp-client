@@ -8,7 +8,7 @@ const styles = {
     bottom: 0,
     width: "100%",
     backgroundColor: "lightgray",
-    padding: "15px",
+    padding: "10px",
     textAlign: "center",
   },
   text: {

@@ -31,18 +31,18 @@ function GameList() {
   }, []);
 
   const searchProduct = (search) => {
-    //console.log(search)
-
     let foundGame = games.filter((eachGame) => {
-      if (eachGame.name.toLowerCase().includes(search)) {
+      const gameName = eachGame.name.toLowerCase();
+      const platforms = eachGame.platform;
+  
+      if (platforms.some((platform) => platform.toLowerCase().includes(search)) || gameName.includes(search)) {
         return true; // agrega el elemento
       } else {
         return false; // no lo agrega
       }
     });
-    //console.log(foundGame)
+  
     setFilteredGames(foundGame);
-    //console.log(filteredGames)
   };
 
   if (isLoading) {
