@@ -38,10 +38,16 @@ function GameDetails() {
     try {
       const response = await gamesDetailsService(gameId);
       const commentsResponse = await getCommentService(gameId);
-      const userInfo = await getProfileService();
-      const favGameIds = userInfo.data.favGame.map((game) => game._id);
-      const isGameInFavorites = favGameIds.includes(gameId);
-      setIsFav(isGameInFavorites);
+      if (isLoggedIn) {
+          const userInfo = await getProfileService();
+          const favGameIds = userInfo.data.favGame.map((game) => game._id);
+          const isGameInFavorites = favGameIds.includes(gameId);
+          setIsFav(isGameInFavorites);
+      } else {
+        setIsFav(false)
+      }
+
+      
       setSingleGame(response.data.game);
       setAllComments(commentsResponse.data);
       setIsLoading(false);
@@ -71,7 +77,7 @@ function GameDetails() {
       content: createComment,
     };
     try {
-      const responseCreateComment = await createCommentService(
+      await createCommentService(
         gameId,
         newComment
       );
