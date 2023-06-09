@@ -1,6 +1,5 @@
 import service from "./config.services";
 
-
 const gamesService = () => {
   return service.get("/games");
 };
@@ -21,11 +20,10 @@ const editGameService = (gameId, updatedGame) => {
   return service.put(`/games/${gameId}/edit`, updatedGame);
 };
 
-
 export {
   gamesService,
   createGameService,
   deleteGameService,
   editGameService,
   gamesDetailsService,
-}
+};

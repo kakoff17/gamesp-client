@@ -4,18 +4,10 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* background-image: url("../public/fondo-web.jpg");
-  background-repeat: repeat;
-  background-size: cover; */
+  -moz-osx-font-smoothing: grayscale;  
 }
 
-/* .navbar-logo {
-  width: 7%;
-  height: 1%;
-  float: left; 
-  margin-left: 4%;  
-} */
+
 
 
 

@@ -25,7 +25,7 @@ function GameDetails() {
   const [createComment, setCreateComment] = useState("");
   const [allComments, setAllComments] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isFav, setIsFav] = useState("")
+  const [isFav, setIsFav] = useState("");
   const [isDeleted, setIsDeleted] = useState(false);
   const [isAddedToFav, setIsAddedToFav] = useState(false);
 
@@ -50,7 +50,7 @@ function GameDetails() {
       navigate("/error");
     }
   };
-  
+
   useEffect(() => {
     getData();
   }, []);
@@ -107,7 +107,7 @@ function GameDetails() {
         setIsAddedToFav(true);
         setIsDeleted("");
       } else {
-        setIsAddedToFav("")
+        setIsAddedToFav("");
         setErrorMessage("El juego ya está en favoritos.");
       }
     } catch (error) {
@@ -119,15 +119,15 @@ function GameDetails() {
     }
   };
 
-    const handleDeleteFavourite = async () => {
+  const handleDeleteFavourite = async () => {
     try {
       await removeFavService(gameId);
       await getData();
-      setIsFav(false)
+      setIsFav(false);
       setIsAddedToFav("");
       setIsDeleted("");
-      if(isFav === false){
-        setErrorMessage("Juego eliminado de favoritos")
+      if (isFav === false) {
+        setErrorMessage("Juego eliminado de favoritos");
       }
     } catch (error) {
       //console.log(error);
@@ -194,11 +194,16 @@ function GameDetails() {
                   <button onClick={handleDeleteFavourite}>
                     Eliminar de favoritos
                   </button>
-                  
                 )}
               </section>
-              {isAddedToFav && <p style={{ color: "red" }}>El juego se ha añadido a favoritos correctamente.</p>}
-              {isDeleted && <p style={{ color: "red" }}>Juego eliminado de favoritos</p>}
+              {isAddedToFav && (
+                <p style={{ color: "red" }}>
+                  El juego se ha añadido a favoritos correctamente.
+                </p>
+              )}
+              {isDeleted && (
+                <p style={{ color: "red" }}>Juego eliminado de favoritos</p>
+              )}
               {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             </Card.Body>
           </Card>
@@ -233,7 +238,6 @@ function GameDetails() {
                       value={createComment}
                     />
                     <button type="submit">Enviar</button>
-
                   </form>
                 </div>
               )}

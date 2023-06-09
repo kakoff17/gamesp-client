@@ -1,19 +1,15 @@
-import service from "./config.services"
+import service from "./config.services";
 
 const getProfileService = () => {
-    return service.get("/profile")
-}
+  return service.get("/profile");
+};
 
 const editProfileService = (updatedProfile) => {
-    return service.put("/profile/edit", updatedProfile)
-}
+  return service.put("/profile/edit", updatedProfile);
+};
 
 const getFavGamesService = () => {
-    return service.get("/profile/favs")
-}
+  return service.get("/profile/favs");
+};
 
-export { 
-    getProfileService,
-    editProfileService,
-    getFavGamesService
-} 
+export { getProfileService, editProfileService, getFavGamesService };

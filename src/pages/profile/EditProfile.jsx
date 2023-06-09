@@ -86,7 +86,7 @@ function EditProfile() {
             <Form.Control
               type="password"
               name="password"
-              onChange={handlePasswordChange}              
+              onChange={handlePasswordChange}
             />
           </Form.Group>
 

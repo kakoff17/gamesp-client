@@ -9,7 +9,7 @@ function GameList() {
   const [games, setGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isFav, setIsFav] = useState("")
+  const [isFav, setIsFav] = useState("");
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -34,14 +34,17 @@ function GameList() {
     let foundGame = games.filter((eachGame) => {
       const gameName = eachGame.name.toLowerCase();
       const platforms = eachGame.platform;
-  
-      if (platforms.some((platform) => platform.toLowerCase().includes(search)) || gameName.includes(search)) {
+
+      if (
+        platforms.some((platform) => platform.toLowerCase().includes(search)) ||
+        gameName.includes(search)
+      ) {
         return true; // agrega el elemento
       } else {
         return false; // no lo agrega
       }
     });
-  
+
     setFilteredGames(foundGame);
   };
 

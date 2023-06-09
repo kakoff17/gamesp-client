@@ -24,16 +24,37 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<GameList />} />
-        <Route path="/games/create" element={<IsAdmin><GameCreate /></IsAdmin>}/>
+        <Route
+          path="/games/create"
+          element={
+            <IsAdmin>
+              <GameCreate />
+            </IsAdmin>
+          }
+        />
         <Route path="/games/:gameId" element={<GameDetails />} />
         <Route path="/games/:gameId/edit" element={<GameEdit />} />
 
         {/* RUTAS DE PERFIL */}
         <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/auth/login" element={<Login />} />        
-        <Route path="/profile" element={<IsPrivate><Profile /></IsPrivate>}/>
-        <Route path="/profile/edit" element={<IsPrivate><EditProfile /></IsPrivate>}/>
-               
+        <Route path="/auth/login" element={<Login />} />
+        <Route
+          path="/profile"
+          element={
+            <IsPrivate>
+              <Profile />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/profile/edit"
+          element={
+            <IsPrivate>
+              <EditProfile />
+            </IsPrivate>
+          }
+        />
+
         {/* error handlers */}
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />

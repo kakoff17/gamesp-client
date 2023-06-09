@@ -130,7 +130,7 @@ function GameCreate(props) {
         <Form.Group className="mt-3" controlId="gameplay">
           <Form.Label>Gameplay video:</Form.Label>
           <Form.Control
-          placeholder="Inserta una URL"
+            placeholder="Inserta una URL"
             type="text"
             name="gameplay"
             onChange={handleGameplayChange}
