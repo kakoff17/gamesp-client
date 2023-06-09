@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# GAMESP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [Visita la página](https://gamesp.netlify.app/)
 
-## Available Scripts
+![GAMESP LOGO](https://imgur.com/gAwIOI5)
 
-In the project directory, you can run:
+## Descripción
 
-### `npm start`
+**NOTE -** Proyecto personal para poner a pruebas mis conocimientos de javascript y react. Es un proyecto sobre un catalogo de juegos donde puedes interactuar añadiendo comentarios y añadiendo los juegos a favoritos.
+#### [Repositorio de cliente](https://github.com/kakoff17/gamesp-client)
+#### [Repositorio de servidor](https://github.com/kakoff17/gamesp-server)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Funcionalidades futuras
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**NOTE -** 
+-Implementar que en lugar de extraer la información de un JSON provenga de una API.
+-Añadir un chat para comentar curiosidades sobre juegos.
+-Añadir amigos entre usuarios para conocer sus juegos favoritos y poder curiosear.
 
-### `npm test`
+## Tecnologías usadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**NOTE -** List here all technologies used in the project like HTML, CSS, Javascript, React, axios, React Context etc.
+- HTML
+- CSS
+- Javascript
+- React
+- Axios
+- Bootstrap
+- MongoDB
+- Netlify
+- Github
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Estructura de cliente
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Acciones de usuario
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**NOTE -**  Todas las acciones que puede realizar el usuario:
 
-### `npm run eject`
+- **404** - La página no existe. 
+- **500** - Hay un error de nuestra parte. 
+- **homepage** - Página principal básica
+- **sign up** - Crea una cuenta para disfrutar de mas funcionalidades.
+- **login** - Una vez que has creado la cuenta puedes hacer login y disfrutar de esas funcionalidades.
+- **logout** - Una vez hayas acabado de interactuar por el momento, cierra tu sesión.
+- **games list** - Puedes ver toda una lista de videojuegos con información sobre ellos
+- **games details** - Puedes ver información mas especifica de cada juego así como interactuar con el.
+- **events create** - Solo los administradores pueden crear juegos pero existe esa posibilidad.
+- **games fav** - El usuario puede guardar los juegos como favoritos.
+- **game comments** - El usuario puede dejar un comentario sobre el juego.
+- **game comments** - 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Rutas de
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**NOTE -** Use below table to list your frontend routes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## React Router Routes (React App)
+| Path                      | Page            | Components        | Permissions              | Behavior                                                             |
+| ------------------------- | ----------------| ----------------  | ------------------------ | ------------------------------------------------------------         |
+| `/`                       | Home            |                   | public                   | Home page                                                            |
+| `/signup`                 | Signup          |                   | anon only `<IsAnon>`     | Formulario de registro, link a login, enviado a login al registrar   |
+| `/login`                  | Login           |                   | anon only `<IsAnon>`     | Formulario de login, reenviado al perfil despues de acceder          |
+| `/profile`                | Profile         | EditProfile       | user only `<IsPrivate>`  | Enviado a la pagina principal después de cerrar sesión               |
+| `/profile/edit            | Profile         | EditProfile       | user only `<IsPrivate>`  | Edita los datos de acceso a tu cuenta                                |
+| `/games/gameList`         | GameList        | GameCard          | public                   | Muestra toda la lista de juegos                                      |
+| `/games/edit`             | GamesEdit       |                   | admin only `<IsAdmin>`   | Edita un juego y lo actualiza en la base de datos                    |
+| `/games/create            | GamesCreate     | Form              | admin only `<IsAdmin>`   | Crea un juego y lo añade a la base de datos                          |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Otros componentes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Navbar
+- Footer
+- Search
+- IsPrivate
+- IsAdmin
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Servicios
 
-### Code Splitting
+- Auth Service
+  - auth.login(user)
+  - auth.signup(user)
+  - auth.verify()
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Backlog Service
+  - gamesService()
+  - createGameService(newGame)
+  - gamesDetailsService(gameId)
+  - deleteGameService(gameId)
+  - editGameService(gameId, updatedGame)
+  
+- Profile Service
+  - getProfileService
+  - editProfileService(updatedProfile)
+  - getFavGamesService
 
-### Analyzing the Bundle Size
+- Favorite Service
+  - addFavGameService(gameId)
+  - removeFavService(gameId)
+  
+- Comment Service
+  - getCommentService(gameId)
+  - createCommentService(gameId, newComment)
+  - deleteCommentService(gameId, commId)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contexto
 
-### Making a Progressive Web App
+- auth.context
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  
+## Links
 
-### Advanced Configuration
+### Collaborators
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+[Carlos Ponce Diez](https://github.com/kakoff17)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+### Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Repository Link Client](https://github.com/kakoff17/gamesp-client)
+
+[Repository Link Server](https://github.com/kakoff17/gamesp-server/)
+
+[Deploy Link](https://gamesp.netlify.app/)
