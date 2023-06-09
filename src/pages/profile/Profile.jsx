@@ -47,7 +47,7 @@ function Profile() {
       <Container>
     <Row className="justify-content-between">
       <Col>
-        <Card className="mt-4" style={{ width: "600px" }}>
+        <Card className="mt-4 mb-4" style={{ width: "600px" }}>
             <Card.Body>
               <Card.Title>Usuario: {user.username}</Card.Title>
               <Card.Text>
